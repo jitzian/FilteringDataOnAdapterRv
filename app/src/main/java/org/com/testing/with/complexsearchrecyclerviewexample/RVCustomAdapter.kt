@@ -20,8 +20,6 @@ class RVCustomAdapter(private var lstRes: ArrayList<Article>) :
 
     lateinit var mcontext: Context
 
-    class CountryHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
     init {
         lstResFiltered = lstRes
     }
@@ -39,14 +37,24 @@ class RVCustomAdapter(private var lstRes: ArrayList<Article>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as CountryHolder).bindData(lstResFiltered[position])
+    }
 
-        Picasso.get()
-            .load("https://cdn4.iconfinder.com/data/icons/bettericons/354/github-512.png")
-            .into(holder.itemView.findViewById<ImageView>(R.id.mImageViewCardViewItem))
-        holder.itemView.findViewById<TextView>(R.id.mTextViewTitle).text =
-            lstResFiltered[position].title
-        holder.itemView.findViewById<TextView>(R.id.mTextViewContent).text =
-            lstResFiltered[position].content
+
+    inner class CountryHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        private val mImageViewCardViewItem: ImageView = itemView.findViewById(R.id.mImageViewCardViewItem)
+        private val mTextViewTitle: TextView = itemView.findViewById(R.id.mTextViewTitle)
+        private val mTextViewContent: TextView = itemView.findViewById(R.id.mTextViewContent)
+
+
+        fun bindData(data: Article){
+            Picasso.get()
+                .load("https://cdn4.iconfinder.com/data/icons/bettericons/354/github-512.png")
+                .into(mImageViewCardViewItem)
+
+            mTextViewTitle.text = data.title
+            mTextViewContent.text = data.content
+        }
 
     }
 
