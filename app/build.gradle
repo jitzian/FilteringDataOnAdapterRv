@@ -48,3 +48,30 @@ dependencies {
     implementation "com.squareup.picasso:picasso:2.71828"
 
 }
+
+//Kotlin Components and Kotlin Coroutines
+dependencies {
+//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${deps.coroutinesVersionLib}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${deps.coroutinesVersionLib}"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${deps.coroutinesVersionLib}"
+}
+
+// LiveData & ViewModel
+dependencies {
+    implementation "android.arch.lifecycle:extensions:${deps.lifecycleVersionLib}"
+    def lifecycle_version = "2.2.0"
+    def arch_version = "2.1.0"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
+}
