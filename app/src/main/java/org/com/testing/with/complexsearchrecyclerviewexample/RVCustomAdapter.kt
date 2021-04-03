@@ -1,6 +1,5 @@
 package org.com.testing.with.complexsearchrecyclerviewexample
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,18 +17,14 @@ class RVCustomAdapter(private var lstRes: ArrayList<Article>) :
 
     var lstResFiltered = ArrayList<Article>()
 
-    lateinit var mcontext: Context
-
     init {
         lstResFiltered = lstRes
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val countryListView =
+        return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.card_view_item, parent, false)
-        val sch = CountryHolder(countryListView)
-        mcontext = parent.context
-        return sch
+        )
     }
 
     override fun getItemCount(): Int {
@@ -37,17 +32,19 @@ class RVCustomAdapter(private var lstRes: ArrayList<Article>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as CountryHolder).bindData(lstResFiltered[position])
+        (holder as ViewHolder).bindData(lstResFiltered[position])
     }
 
 
-    inner class CountryHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        private val mImageViewCardViewItem: ImageView = itemView.findViewById(R.id.mImageViewCardViewItem)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val mImageViewCardViewItem: ImageView =
+            itemView.findViewById(R.id.mImageViewCardViewItem)
         private val mTextViewTitle: TextView = itemView.findViewById(R.id.mTextViewTitle)
         private val mTextViewContent: TextView = itemView.findViewById(R.id.mTextViewContent)
 
 
-        fun bindData(data: Article){
+        fun bindData(data: Article) {
             Picasso.get()
                 .load("https://cdn4.iconfinder.com/data/icons/bettericons/354/github-512.png")
                 .into(mImageViewCardViewItem)
@@ -55,9 +52,7 @@ class RVCustomAdapter(private var lstRes: ArrayList<Article>) :
             mTextViewTitle.text = data.title
             mTextViewContent.text = data.content
         }
-
     }
-
 
     override fun getFilter(): Filter {
         return object : Filter() {
