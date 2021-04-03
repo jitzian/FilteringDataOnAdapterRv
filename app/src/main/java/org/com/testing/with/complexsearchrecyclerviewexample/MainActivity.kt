@@ -1,14 +1,20 @@
 package org.com.testing.with.complexsearchrecyclerviewexample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
 import org.com.testing.with.complexsearchrecyclerviewexample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG = MainActivity::class.java.simpleName
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: RVCustomAdapter
+    private val vm by lazy {
+        MainViewModel()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,12 +23,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initSearchView()
-        initRV()
+        vm.fetchData()
+        setupObservers()
+
     }
 
-    private fun initRV() {
-        adapter = RVCustomAdapter(getData() as ArrayList<Article>)
-        binding.mRecyclerViewMainArticles.adapter = adapter
+    private fun setupObservers() {
+        vm.combinedData.observe(this, Observer { data ->
+            if (data.first) {
+                adapter = RVCustomAdapter(data.second as ArrayList<Article>)
+                binding.mRecyclerViewMainArticles.adapter = adapter
+            } else {
+                Log.e(TAG, "setupObservers::NO DATA")
+            }
+        })
     }
 
     private fun initSearchView() {
@@ -40,27 +54,4 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun getData() =
-        mutableListOf(
-            Article(
-                "Darinka",
-                "The PNG format is widely supported and works best with presentations and web design. "
-            ),
-            Article(
-                "Ana Darinka Fernandez Mosqueda",
-                "The PNG format is widely supported and works best with presentations and web design. "
-            ),
-            Article(
-                "Ulises Fernandez Mosqueda",
-                "The PNG format is widely supported and works best with presentations and web design. "
-            ),
-            Article(
-                "Hector Lucio Mosqueda",
-                "The PNG format is widely supported and works best with presentations and web design. "
-            ),
-            Article(
-                "Victoria Nicole Lucio Mosqueda",
-                "The PNG format is widely supported and works best with presentations and web design. "
-            )
-        )
 }
