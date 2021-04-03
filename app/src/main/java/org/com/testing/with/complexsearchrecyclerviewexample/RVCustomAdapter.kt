@@ -13,7 +13,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class RVCustomAdapter(private var lstRes: ArrayList<Article>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
+    RecyclerView.Adapter<RVCustomAdapter.ViewHolder>(), Filterable {
 
     var lstResFiltered = ArrayList<Article>()
 
@@ -21,7 +21,7 @@ class RVCustomAdapter(private var lstRes: ArrayList<Article>) :
         lstResFiltered = lstRes
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.card_view_item, parent, false)
         )
@@ -31,10 +31,9 @@ class RVCustomAdapter(private var lstRes: ArrayList<Article>) :
         return lstResFiltered.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ViewHolder).bindData(lstResFiltered[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindData(lstResFiltered[position])
     }
-
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -81,7 +80,6 @@ class RVCustomAdapter(private var lstRes: ArrayList<Article>) :
                 lstResFiltered = results?.values as ArrayList<Article>
                 notifyDataSetChanged()
             }
-
         }
     }
 
