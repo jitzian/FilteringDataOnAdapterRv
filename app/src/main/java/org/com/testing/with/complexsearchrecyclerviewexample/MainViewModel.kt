@@ -15,23 +15,23 @@ class MainViewModel : ViewModel() {
 
         val lstRes = mutableListOf(
             Article(
-                "Darinka",
+                "Name 1",
                 "The PNG format is widely supported and works best with presentations and web design. "
             ),
             Article(
-                "Ana Darinka Fernandez Mosqueda",
+                "Name 2",
+                "The JPG format is widely supported and works best with presentations and web design. "
+            ),
+            Article(
+                "Name 2",
+                "The DWM format is widely supported and works best with presentations and web design. "
+            ),
+            Article(
+                "Name",
                 "The PNG format is widely supported and works best with presentations and web design. "
             ),
             Article(
-                "Ulises Fernandez Mosqueda",
-                "The PNG format is widely supported and works best with presentations and web design. "
-            ),
-            Article(
-                "Hector Lucio Mosqueda",
-                "The PNG format is widely supported and works best with presentations and web design. "
-            ),
-            Article(
-                "Victoria Nicole Lucio Mosqueda",
+                "Name 5",
                 "The PNG format is widely supported and works best with presentations and web design. "
             )
         )

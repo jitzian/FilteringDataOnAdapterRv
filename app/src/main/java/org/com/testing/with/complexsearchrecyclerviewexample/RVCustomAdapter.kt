@@ -62,10 +62,12 @@ class RVCustomAdapter(private var lstRes: ArrayList<Article>) :
                 } else {
                     val resultList = ArrayList<Article>()
                     for (row in lstRes) {
-                        if (row.title?.toLowerCase(Locale.ROOT)
-                                ?.contains(charSearch.toLowerCase(Locale.ROOT)) == true
-                        ) {
-                            resultList.add(row)
+                        safeLet(row.title, row.content) { title, content ->
+                            if (title.contains(charSearch, ignoreCase = true)
+                                || content.contains(charSearch, ignoreCase = true)
+                            ) {
+                                resultList.add(row)
+                            }
                         }
                     }
                     resultList
